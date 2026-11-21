@@ -1,0 +1,2650 @@
+[
+  {
+    "id": "QF_098",
+    "question": "Top 18 products by units sold",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.product_name, SUM(oi.quantity) AS units_sold\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY units_sold DESC LIMIT 18",
+    "columns": [
+      "product_name",
+      "units_sold"
+    ],
+    "expected_result": [
+      [
+        "Headphones",
+        3344
+      ],
+      [
+        "Desk",
+        3232
+      ],
+      [
+        "Printer",
+        3219
+      ],
+      [
+        "Chair",
+        3185
+      ],
+      [
+        "Keyboard",
+        3170
+      ],
+      [
+        "Laptop",
+        3155
+      ],
+      [
+        "Mouse",
+        3154
+      ],
+      [
+        "Monitor",
+        3151
+      ],
+      [
+        "Phone",
+        3065
+      ],
+      [
+        "Tablet",
+        3044
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_026",
+    "question": "Top 6 cities by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.city,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY revenue DESC LIMIT 6",
+    "columns": [
+      "city",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        105706900.0
+      ],
+      [
+        "Pune",
+        98401500.0
+      ],
+      [
+        "Mumbai",
+        92164900.0
+      ],
+      [
+        "Bengaluru",
+        83009500.0
+      ],
+      [
+        "Delhi",
+        82739400.0
+      ],
+      [
+        "Chennai",
+        79449400.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_222",
+    "question": "Top 2 cities by refunded order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS refunded_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'refunded'\n           GROUP BY c.city\n           ORDER BY refunded_orders DESC LIMIT 2",
+    "columns": [
+      "city",
+      "refunded_orders"
+    ],
+    "expected_result": [
+      [
+        "Pune",
+        45
+      ],
+      [
+        "Mumbai",
+        45
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_060",
+    "question": "Top 20 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 20",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ],
+      [
+        "Customer_233",
+        20
+      ],
+      [
+        "Customer_479",
+        19
+      ],
+      [
+        "Customer_226",
+        19
+      ],
+      [
+        "Customer_141",
+        19
+      ],
+      [
+        "Customer_403",
+        18
+      ],
+      [
+        "Customer_400",
+        18
+      ],
+      [
+        "Customer_325",
+        17
+      ],
+      [
+        "Customer_316",
+        17
+      ],
+      [
+        "Customer_302",
+        17
+      ],
+      [
+        "Customer_274",
+        17
+      ],
+      [
+        "Customer_215",
+        17
+      ],
+      [
+        "Customer_214",
+        17
+      ],
+      [
+        "Customer_61",
+        17
+      ],
+      [
+        "Customer_35",
+        17
+      ],
+      [
+        "Customer_436",
+        16
+      ],
+      [
+        "Customer_349",
+        16
+      ],
+      [
+        "Customer_332",
+        16
+      ],
+      [
+        "Customer_320",
+        16
+      ],
+      [
+        "Customer_212",
+        16
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_219",
+    "question": "Top 19 products by average quantity per order",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT p.product_name,\n                  AVG(oi.quantity) AS avg_quantity\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY avg_quantity DESC LIMIT 19",
+    "columns": [
+      "product_name",
+      "avg_quantity"
+    ],
+    "expected_result": [
+      [
+        "Printer",
+        3.068636796949476
+      ],
+      [
+        "Chair",
+        3.0507662835249043
+      ],
+      [
+        "Phone",
+        3.0376610505450943
+      ],
+      [
+        "Desk",
+        3.0233863423760523
+      ],
+      [
+        "Monitor",
+        2.9924026590693256
+      ],
+      [
+        "Laptop",
+        2.9848628192999054
+      ],
+      [
+        "Headphones",
+        2.983050847457627
+      ],
+      [
+        "Tablet",
+        2.9524733268671195
+      ],
+      [
+        "Mouse",
+        2.9449112978524745
+      ],
+      [
+        "Keyboard",
+        2.910927456382002
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_021",
+    "question": "Top 1 cities by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.city,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY revenue DESC LIMIT 1",
+    "columns": [
+      "city",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        105706900.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_075",
+    "question": "Top 15 customers by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.customer_id\n           ORDER BY revenue DESC LIMIT 15",
+    "columns": [
+      "name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Customer_167",
+        2793000.0
+      ],
+      [
+        "Customer_48",
+        2616900.0
+      ],
+      [
+        "Customer_154",
+        2522700.0
+      ],
+      [
+        "Customer_198",
+        2441300.0
+      ],
+      [
+        "Customer_141",
+        2314200.0
+      ],
+      [
+        "Customer_42",
+        2266600.0
+      ],
+      [
+        "Customer_223",
+        2234500.0
+      ],
+      [
+        "Customer_279",
+        2224600.0
+      ],
+      [
+        "Customer_230",
+        2189600.0
+      ],
+      [
+        "Customer_238",
+        2188800.0
+      ],
+      [
+        "Customer_390",
+        2172700.0
+      ],
+      [
+        "Customer_410",
+        2146600.0
+      ],
+      [
+        "Customer_181",
+        2145500.0
+      ],
+      [
+        "Customer_295",
+        2139000.0
+      ],
+      [
+        "Customer_170",
+        2122600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_198",
+    "question": "Top 18 cities by average order value",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city,\n                  AVG(order_totals.total) AS avg_order_value\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN (\n               SELECT order_id,\n                      SUM(quantity * unit_price) AS total\n               FROM order_items\n               GROUP BY order_id\n           ) order_totals ON order_totals.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY avg_order_value DESC LIMIT 18",
+    "columns": [
+      "city",
+      "avg_order_value"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        132964.6540880503
+      ],
+      [
+        "Mumbai",
+        128184.84005563283
+      ],
+      [
+        "Delhi",
+        127881.60741885626
+      ],
+      [
+        "Pune",
+        127133.72093023256
+      ],
+      [
+        "Bengaluru",
+        126154.25531914894
+      ],
+      [
+        "Chennai",
+        123368.63354037267
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_059",
+    "question": "Top 19 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 19",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ],
+      [
+        "Customer_233",
+        20
+      ],
+      [
+        "Customer_479",
+        19
+      ],
+      [
+        "Customer_226",
+        19
+      ],
+      [
+        "Customer_141",
+        19
+      ],
+      [
+        "Customer_403",
+        18
+      ],
+      [
+        "Customer_400",
+        18
+      ],
+      [
+        "Customer_325",
+        17
+      ],
+      [
+        "Customer_316",
+        17
+      ],
+      [
+        "Customer_302",
+        17
+      ],
+      [
+        "Customer_274",
+        17
+      ],
+      [
+        "Customer_215",
+        17
+      ],
+      [
+        "Customer_214",
+        17
+      ],
+      [
+        "Customer_61",
+        17
+      ],
+      [
+        "Customer_35",
+        17
+      ],
+      [
+        "Customer_436",
+        16
+      ],
+      [
+        "Customer_349",
+        16
+      ],
+      [
+        "Customer_332",
+        16
+      ],
+      [
+        "Customer_320",
+        16
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_170",
+    "question": "Top 10 months by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT strftime('%Y-%m', o.order_date) AS month,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM orders o\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY month\n           ORDER BY revenue DESC LIMIT 10",
+    "columns": [
+      "month",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "2024-05",
+        21750800.0
+      ],
+      [
+        "2025-01",
+        19953800.0
+      ],
+      [
+        "2024-10",
+        19549800.0
+      ],
+      [
+        "2025-03",
+        19503300.0
+      ],
+      [
+        "2026-02",
+        19479200.0
+      ],
+      [
+        "2025-10",
+        18972000.0
+      ],
+      [
+        "2024-04",
+        18803000.0
+      ],
+      [
+        "2025-04",
+        17739600.0
+      ],
+      [
+        "2024-02",
+        17561900.0
+      ],
+      [
+        "2025-08",
+        17464500.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_012",
+    "question": "Top 12 products by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM order_items oi\n           JOIN orders o ON o.order_id = oi.order_id\n           JOIN products p ON p.product_id = oi.product_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 12",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        205075000.0
+      ],
+      [
+        "Tablet",
+        97408000.0
+      ],
+      [
+        "Phone",
+        76625000.0
+      ],
+      [
+        "Monitor",
+        44114000.0
+      ],
+      [
+        "Desk",
+        38784000.0
+      ],
+      [
+        "Printer",
+        35409000.0
+      ],
+      [
+        "Chair",
+        25480000.0
+      ],
+      [
+        "Headphones",
+        10032000.0
+      ],
+      [
+        "Keyboard",
+        5706000.0
+      ],
+      [
+        "Mouse",
+        2838600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_018",
+    "question": "Top 18 products by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM order_items oi\n           JOIN orders o ON o.order_id = oi.order_id\n           JOIN products p ON p.product_id = oi.product_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 18",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        205075000.0
+      ],
+      [
+        "Tablet",
+        97408000.0
+      ],
+      [
+        "Phone",
+        76625000.0
+      ],
+      [
+        "Monitor",
+        44114000.0
+      ],
+      [
+        "Desk",
+        38784000.0
+      ],
+      [
+        "Printer",
+        35409000.0
+      ],
+      [
+        "Chair",
+        25480000.0
+      ],
+      [
+        "Headphones",
+        10032000.0
+      ],
+      [
+        "Keyboard",
+        5706000.0
+      ],
+      [
+        "Mouse",
+        2838600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_181",
+    "question": "Top 1 cities by average order value",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city,\n                  AVG(order_totals.total) AS avg_order_value\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN (\n               SELECT order_id,\n                      SUM(quantity * unit_price) AS total\n               FROM order_items\n               GROUP BY order_id\n           ) order_totals ON order_totals.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY avg_order_value DESC LIMIT 1",
+    "columns": [
+      "city",
+      "avg_order_value"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        132964.6540880503
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_266",
+    "question": "Top 6 products by refunded revenue",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'refunded'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 6",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        8840000.0
+      ],
+      [
+        "Tablet",
+        6272000.0
+      ],
+      [
+        "Phone",
+        4700000.0
+      ],
+      [
+        "Monitor",
+        3766000.0
+      ],
+      [
+        "Desk",
+        2604000.0
+      ],
+      [
+        "Printer",
+        2134000.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_148",
+    "question": "Top 8 cities by order count",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.city\n           ORDER BY order_count DESC LIMIT 8",
+    "columns": [
+      "city",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        938
+      ],
+      [
+        "Pune",
+        906
+      ],
+      [
+        "Mumbai",
+        849
+      ],
+      [
+        "Bengaluru",
+        802
+      ],
+      [
+        "Delhi",
+        754
+      ],
+      [
+        "Chennai",
+        751
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_186",
+    "question": "Top 6 cities by average order value",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city,\n                  AVG(order_totals.total) AS avg_order_value\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN (\n               SELECT order_id,\n                      SUM(quantity * unit_price) AS total\n               FROM order_items\n               GROUP BY order_id\n           ) order_totals ON order_totals.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY avg_order_value DESC LIMIT 6",
+    "columns": [
+      "city",
+      "avg_order_value"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        132964.6540880503
+      ],
+      [
+        "Mumbai",
+        128184.84005563283
+      ],
+      [
+        "Delhi",
+        127881.60741885626
+      ],
+      [
+        "Pune",
+        127133.72093023256
+      ],
+      [
+        "Bengaluru",
+        126154.25531914894
+      ],
+      [
+        "Chennai",
+        123368.63354037267
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_151",
+    "question": "Top 11 cities by order count",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.city\n           ORDER BY order_count DESC LIMIT 11",
+    "columns": [
+      "city",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        938
+      ],
+      [
+        "Pune",
+        906
+      ],
+      [
+        "Mumbai",
+        849
+      ],
+      [
+        "Bengaluru",
+        802
+      ],
+      [
+        "Delhi",
+        754
+      ],
+      [
+        "Chennai",
+        751
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_041",
+    "question": "Top 1 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 1",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_194",
+    "question": "Top 14 cities by average order value",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city,\n                  AVG(order_totals.total) AS avg_order_value\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN (\n               SELECT order_id,\n                      SUM(quantity * unit_price) AS total\n               FROM order_items\n               GROUP BY order_id\n           ) order_totals ON order_totals.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY avg_order_value DESC LIMIT 14",
+    "columns": [
+      "city",
+      "avg_order_value"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        132964.6540880503
+      ],
+      [
+        "Mumbai",
+        128184.84005563283
+      ],
+      [
+        "Delhi",
+        127881.60741885626
+      ],
+      [
+        "Pune",
+        127133.72093023256
+      ],
+      [
+        "Bengaluru",
+        126154.25531914894
+      ],
+      [
+        "Chennai",
+        123368.63354037267
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_064",
+    "question": "Top 4 customers by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.customer_id\n           ORDER BY revenue DESC LIMIT 4",
+    "columns": [
+      "name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Customer_167",
+        2793000.0
+      ],
+      [
+        "Customer_48",
+        2616900.0
+      ],
+      [
+        "Customer_154",
+        2522700.0
+      ],
+      [
+        "Customer_198",
+        2441300.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_236",
+    "question": "Top 16 cities by refunded order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS refunded_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'refunded'\n           GROUP BY c.city\n           ORDER BY refunded_orders DESC LIMIT 16",
+    "columns": [
+      "city",
+      "refunded_orders"
+    ],
+    "expected_result": [
+      [
+        "Pune",
+        45
+      ],
+      [
+        "Mumbai",
+        45
+      ],
+      [
+        "Bengaluru",
+        45
+      ],
+      [
+        "Hyderabad",
+        44
+      ],
+      [
+        "Chennai",
+        38
+      ],
+      [
+        "Delhi",
+        27
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_023",
+    "question": "Top 3 cities by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.city,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY revenue DESC LIMIT 3",
+    "columns": [
+      "city",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        105706900.0
+      ],
+      [
+        "Pune",
+        98401500.0
+      ],
+      [
+        "Mumbai",
+        92164900.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_136",
+    "question": "Top 16 customer segments by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.segment,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.segment\n           ORDER BY revenue DESC LIMIT 16",
+    "columns": [
+      "segment",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Consumer",
+        185457300.0
+      ],
+      [
+        "Corporate",
+        183829000.0
+      ],
+      [
+        "Small Business",
+        172185300.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_177",
+    "question": "Top 17 months by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT strftime('%Y-%m', o.order_date) AS month,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM orders o\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY month\n           ORDER BY revenue DESC LIMIT 17",
+    "columns": [
+      "month",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "2024-05",
+        21750800.0
+      ],
+      [
+        "2025-01",
+        19953800.0
+      ],
+      [
+        "2024-10",
+        19549800.0
+      ],
+      [
+        "2025-03",
+        19503300.0
+      ],
+      [
+        "2026-02",
+        19479200.0
+      ],
+      [
+        "2025-10",
+        18972000.0
+      ],
+      [
+        "2024-04",
+        18803000.0
+      ],
+      [
+        "2025-04",
+        17739600.0
+      ],
+      [
+        "2024-02",
+        17561900.0
+      ],
+      [
+        "2025-08",
+        17464500.0
+      ],
+      [
+        "2024-06",
+        17158200.0
+      ],
+      [
+        "2024-09",
+        17098400.0
+      ],
+      [
+        "2024-11",
+        16803200.0
+      ],
+      [
+        "2024-08",
+        16749200.0
+      ],
+      [
+        "2026-06",
+        16445100.0
+      ],
+      [
+        "2024-01",
+        16215500.0
+      ],
+      [
+        "2024-03",
+        15905600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_184",
+    "question": "Top 4 cities by average order value",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city,\n                  AVG(order_totals.total) AS avg_order_value\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN (\n               SELECT order_id,\n                      SUM(quantity * unit_price) AS total\n               FROM order_items\n               GROUP BY order_id\n           ) order_totals ON order_totals.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY avg_order_value DESC LIMIT 4",
+    "columns": [
+      "city",
+      "avg_order_value"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        132964.6540880503
+      ],
+      [
+        "Mumbai",
+        128184.84005563283
+      ],
+      [
+        "Delhi",
+        127881.60741885626
+      ],
+      [
+        "Pune",
+        127133.72093023256
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_050",
+    "question": "Top 10 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 10",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ],
+      [
+        "Customer_233",
+        20
+      ],
+      [
+        "Customer_479",
+        19
+      ],
+      [
+        "Customer_226",
+        19
+      ],
+      [
+        "Customer_141",
+        19
+      ],
+      [
+        "Customer_403",
+        18
+      ],
+      [
+        "Customer_400",
+        18
+      ],
+      [
+        "Customer_325",
+        17
+      ],
+      [
+        "Customer_316",
+        17
+      ],
+      [
+        "Customer_302",
+        17
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_195",
+    "question": "Top 15 cities by average order value",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city,\n                  AVG(order_totals.total) AS avg_order_value\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN (\n               SELECT order_id,\n                      SUM(quantity * unit_price) AS total\n               FROM order_items\n               GROUP BY order_id\n           ) order_totals ON order_totals.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.city\n           ORDER BY avg_order_value DESC LIMIT 15",
+    "columns": [
+      "city",
+      "avg_order_value"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        132964.6540880503
+      ],
+      [
+        "Mumbai",
+        128184.84005563283
+      ],
+      [
+        "Delhi",
+        127881.60741885626
+      ],
+      [
+        "Pune",
+        127133.72093023256
+      ],
+      [
+        "Bengaluru",
+        126154.25531914894
+      ],
+      [
+        "Chennai",
+        123368.63354037267
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_288",
+    "question": "Top 8 cities by cancelled order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS cancelled_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'cancelled'\n           GROUP BY c.city\n           ORDER BY cancelled_orders DESC LIMIT 8",
+    "columns": [
+      "city",
+      "cancelled_orders"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        99
+      ],
+      [
+        "Bengaluru",
+        99
+      ],
+      [
+        "Pune",
+        87
+      ],
+      [
+        "Mumbai",
+        85
+      ],
+      [
+        "Delhi",
+        80
+      ],
+      [
+        "Chennai",
+        69
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_294",
+    "question": "Top 14 cities by cancelled order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS cancelled_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'cancelled'\n           GROUP BY c.city\n           ORDER BY cancelled_orders DESC LIMIT 14",
+    "columns": [
+      "city",
+      "cancelled_orders"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        99
+      ],
+      [
+        "Bengaluru",
+        99
+      ],
+      [
+        "Pune",
+        87
+      ],
+      [
+        "Mumbai",
+        85
+      ],
+      [
+        "Delhi",
+        80
+      ],
+      [
+        "Chennai",
+        69
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_173",
+    "question": "Top 13 months by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT strftime('%Y-%m', o.order_date) AS month,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM orders o\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY month\n           ORDER BY revenue DESC LIMIT 13",
+    "columns": [
+      "month",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "2024-05",
+        21750800.0
+      ],
+      [
+        "2025-01",
+        19953800.0
+      ],
+      [
+        "2024-10",
+        19549800.0
+      ],
+      [
+        "2025-03",
+        19503300.0
+      ],
+      [
+        "2026-02",
+        19479200.0
+      ],
+      [
+        "2025-10",
+        18972000.0
+      ],
+      [
+        "2024-04",
+        18803000.0
+      ],
+      [
+        "2025-04",
+        17739600.0
+      ],
+      [
+        "2024-02",
+        17561900.0
+      ],
+      [
+        "2025-08",
+        17464500.0
+      ],
+      [
+        "2024-06",
+        17158200.0
+      ],
+      [
+        "2024-09",
+        17098400.0
+      ],
+      [
+        "2024-11",
+        16803200.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_111",
+    "question": "Top 11 product categories by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.category,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.category\n           ORDER BY revenue DESC LIMIT 11",
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Electronics",
+        458631000.0
+      ],
+      [
+        "Furniture",
+        64264000.0
+      ],
+      [
+        "Accessories",
+        18576600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_080",
+    "question": "Top 20 customers by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.customer_id\n           ORDER BY revenue DESC LIMIT 20",
+    "columns": [
+      "name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Customer_167",
+        2793000.0
+      ],
+      [
+        "Customer_48",
+        2616900.0
+      ],
+      [
+        "Customer_154",
+        2522700.0
+      ],
+      [
+        "Customer_198",
+        2441300.0
+      ],
+      [
+        "Customer_141",
+        2314200.0
+      ],
+      [
+        "Customer_42",
+        2266600.0
+      ],
+      [
+        "Customer_223",
+        2234500.0
+      ],
+      [
+        "Customer_279",
+        2224600.0
+      ],
+      [
+        "Customer_230",
+        2189600.0
+      ],
+      [
+        "Customer_238",
+        2188800.0
+      ],
+      [
+        "Customer_390",
+        2172700.0
+      ],
+      [
+        "Customer_410",
+        2146600.0
+      ],
+      [
+        "Customer_181",
+        2145500.0
+      ],
+      [
+        "Customer_295",
+        2139000.0
+      ],
+      [
+        "Customer_170",
+        2122600.0
+      ],
+      [
+        "Customer_145",
+        2099800.0
+      ],
+      [
+        "Customer_484",
+        2072200.0
+      ],
+      [
+        "Customer_303",
+        2064700.0
+      ],
+      [
+        "Customer_496",
+        2039900.0
+      ],
+      [
+        "Customer_253",
+        2038000.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_278",
+    "question": "Top 18 products by refunded revenue",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'refunded'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 18",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        8840000.0
+      ],
+      [
+        "Tablet",
+        6272000.0
+      ],
+      [
+        "Phone",
+        4700000.0
+      ],
+      [
+        "Monitor",
+        3766000.0
+      ],
+      [
+        "Desk",
+        2604000.0
+      ],
+      [
+        "Printer",
+        2134000.0
+      ],
+      [
+        "Chair",
+        1176000.0
+      ],
+      [
+        "Headphones",
+        546000.0
+      ],
+      [
+        "Keyboard",
+        354600.0
+      ],
+      [
+        "Mouse",
+        137700.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_175",
+    "question": "Top 15 months by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT strftime('%Y-%m', o.order_date) AS month,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM orders o\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY month\n           ORDER BY revenue DESC LIMIT 15",
+    "columns": [
+      "month",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "2024-05",
+        21750800.0
+      ],
+      [
+        "2025-01",
+        19953800.0
+      ],
+      [
+        "2024-10",
+        19549800.0
+      ],
+      [
+        "2025-03",
+        19503300.0
+      ],
+      [
+        "2026-02",
+        19479200.0
+      ],
+      [
+        "2025-10",
+        18972000.0
+      ],
+      [
+        "2024-04",
+        18803000.0
+      ],
+      [
+        "2025-04",
+        17739600.0
+      ],
+      [
+        "2024-02",
+        17561900.0
+      ],
+      [
+        "2025-08",
+        17464500.0
+      ],
+      [
+        "2024-06",
+        17158200.0
+      ],
+      [
+        "2024-09",
+        17098400.0
+      ],
+      [
+        "2024-11",
+        16803200.0
+      ],
+      [
+        "2024-08",
+        16749200.0
+      ],
+      [
+        "2026-06",
+        16445100.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_291",
+    "question": "Top 11 cities by cancelled order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS cancelled_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'cancelled'\n           GROUP BY c.city\n           ORDER BY cancelled_orders DESC LIMIT 11",
+    "columns": [
+      "city",
+      "cancelled_orders"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        99
+      ],
+      [
+        "Bengaluru",
+        99
+      ],
+      [
+        "Pune",
+        87
+      ],
+      [
+        "Mumbai",
+        85
+      ],
+      [
+        "Delhi",
+        80
+      ],
+      [
+        "Chennai",
+        69
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_082",
+    "question": "Top 2 products by units sold",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.product_name, SUM(oi.quantity) AS units_sold\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY units_sold DESC LIMIT 2",
+    "columns": [
+      "product_name",
+      "units_sold"
+    ],
+    "expected_result": [
+      [
+        "Headphones",
+        3344
+      ],
+      [
+        "Desk",
+        3232
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_004",
+    "question": "Top 4 products by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM order_items oi\n           JOIN orders o ON o.order_id = oi.order_id\n           JOIN products p ON p.product_id = oi.product_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 4",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        205075000.0
+      ],
+      [
+        "Tablet",
+        97408000.0
+      ],
+      [
+        "Phone",
+        76625000.0
+      ],
+      [
+        "Monitor",
+        44114000.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_143",
+    "question": "Top 3 cities by order count",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.city\n           ORDER BY order_count DESC LIMIT 3",
+    "columns": [
+      "city",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        938
+      ],
+      [
+        "Pune",
+        906
+      ],
+      [
+        "Mumbai",
+        849
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_230",
+    "question": "Top 10 cities by refunded order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS refunded_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'refunded'\n           GROUP BY c.city\n           ORDER BY refunded_orders DESC LIMIT 10",
+    "columns": [
+      "city",
+      "refunded_orders"
+    ],
+    "expected_result": [
+      [
+        "Pune",
+        45
+      ],
+      [
+        "Mumbai",
+        45
+      ],
+      [
+        "Bengaluru",
+        45
+      ],
+      [
+        "Hyderabad",
+        44
+      ],
+      [
+        "Chennai",
+        38
+      ],
+      [
+        "Delhi",
+        27
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_113",
+    "question": "Top 13 product categories by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.category,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.category\n           ORDER BY revenue DESC LIMIT 13",
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Electronics",
+        458631000.0
+      ],
+      [
+        "Furniture",
+        64264000.0
+      ],
+      [
+        "Accessories",
+        18576600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_215",
+    "question": "Top 15 products by average quantity per order",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT p.product_name,\n                  AVG(oi.quantity) AS avg_quantity\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY avg_quantity DESC LIMIT 15",
+    "columns": [
+      "product_name",
+      "avg_quantity"
+    ],
+    "expected_result": [
+      [
+        "Printer",
+        3.068636796949476
+      ],
+      [
+        "Chair",
+        3.0507662835249043
+      ],
+      [
+        "Phone",
+        3.0376610505450943
+      ],
+      [
+        "Desk",
+        3.0233863423760523
+      ],
+      [
+        "Monitor",
+        2.9924026590693256
+      ],
+      [
+        "Laptop",
+        2.9848628192999054
+      ],
+      [
+        "Headphones",
+        2.983050847457627
+      ],
+      [
+        "Tablet",
+        2.9524733268671195
+      ],
+      [
+        "Mouse",
+        2.9449112978524745
+      ],
+      [
+        "Keyboard",
+        2.910927456382002
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_293",
+    "question": "Top 13 cities by cancelled order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS cancelled_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'cancelled'\n           GROUP BY c.city\n           ORDER BY cancelled_orders DESC LIMIT 13",
+    "columns": [
+      "city",
+      "cancelled_orders"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        99
+      ],
+      [
+        "Bengaluru",
+        99
+      ],
+      [
+        "Pune",
+        87
+      ],
+      [
+        "Mumbai",
+        85
+      ],
+      [
+        "Delhi",
+        80
+      ],
+      [
+        "Chennai",
+        69
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_102",
+    "question": "Top 2 product categories by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.category,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.category\n           ORDER BY revenue DESC LIMIT 2",
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Electronics",
+        458631000.0
+      ],
+      [
+        "Furniture",
+        64264000.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_014",
+    "question": "Top 14 products by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM order_items oi\n           JOIN orders o ON o.order_id = oi.order_id\n           JOIN products p ON p.product_id = oi.product_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 14",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        205075000.0
+      ],
+      [
+        "Tablet",
+        97408000.0
+      ],
+      [
+        "Phone",
+        76625000.0
+      ],
+      [
+        "Monitor",
+        44114000.0
+      ],
+      [
+        "Desk",
+        38784000.0
+      ],
+      [
+        "Printer",
+        35409000.0
+      ],
+      [
+        "Chair",
+        25480000.0
+      ],
+      [
+        "Headphones",
+        10032000.0
+      ],
+      [
+        "Keyboard",
+        5706000.0
+      ],
+      [
+        "Mouse",
+        2838600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_259",
+    "question": "Top 19 customers by completed order count",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS completed_orders\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           WHERE o.status = 'completed'\n           GROUP BY c.customer_id\n           ORDER BY completed_orders DESC LIMIT 19",
+    "columns": [
+      "name",
+      "completed_orders"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        20
+      ],
+      [
+        "Customer_233",
+        19
+      ],
+      [
+        "Customer_226",
+        18
+      ],
+      [
+        "Customer_141",
+        18
+      ],
+      [
+        "Customer_403",
+        16
+      ],
+      [
+        "Customer_400",
+        16
+      ],
+      [
+        "Customer_274",
+        16
+      ],
+      [
+        "Customer_61",
+        16
+      ],
+      [
+        "Customer_325",
+        15
+      ],
+      [
+        "Customer_214",
+        15
+      ],
+      [
+        "Customer_212",
+        15
+      ],
+      [
+        "Customer_154",
+        15
+      ],
+      [
+        "Customer_69",
+        15
+      ],
+      [
+        "Customer_246",
+        14
+      ],
+      [
+        "Customer_167",
+        14
+      ],
+      [
+        "Customer_145",
+        14
+      ],
+      [
+        "Customer_96",
+        14
+      ],
+      [
+        "Customer_50",
+        14
+      ],
+      [
+        "Customer_35",
+        14
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_120",
+    "question": "Top 20 product categories by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.category,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.category\n           ORDER BY revenue DESC LIMIT 20",
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Electronics",
+        458631000.0
+      ],
+      [
+        "Furniture",
+        64264000.0
+      ],
+      [
+        "Accessories",
+        18576600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_112",
+    "question": "Top 12 product categories by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.category,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.category\n           ORDER BY revenue DESC LIMIT 12",
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Electronics",
+        458631000.0
+      ],
+      [
+        "Furniture",
+        64264000.0
+      ],
+      [
+        "Accessories",
+        18576600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_048",
+    "question": "Top 8 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 8",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ],
+      [
+        "Customer_233",
+        20
+      ],
+      [
+        "Customer_479",
+        19
+      ],
+      [
+        "Customer_226",
+        19
+      ],
+      [
+        "Customer_141",
+        19
+      ],
+      [
+        "Customer_403",
+        18
+      ],
+      [
+        "Customer_400",
+        18
+      ],
+      [
+        "Customer_325",
+        17
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_016",
+    "question": "Top 16 products by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM order_items oi\n           JOIN orders o ON o.order_id = oi.order_id\n           JOIN products p ON p.product_id = oi.product_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 16",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        205075000.0
+      ],
+      [
+        "Tablet",
+        97408000.0
+      ],
+      [
+        "Phone",
+        76625000.0
+      ],
+      [
+        "Monitor",
+        44114000.0
+      ],
+      [
+        "Desk",
+        38784000.0
+      ],
+      [
+        "Printer",
+        35409000.0
+      ],
+      [
+        "Chair",
+        25480000.0
+      ],
+      [
+        "Headphones",
+        10032000.0
+      ],
+      [
+        "Keyboard",
+        5706000.0
+      ],
+      [
+        "Mouse",
+        2838600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_017",
+    "question": "Top 17 products by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM order_items oi\n           JOIN orders o ON o.order_id = oi.order_id\n           JOIN products p ON p.product_id = oi.product_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 17",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        205075000.0
+      ],
+      [
+        "Tablet",
+        97408000.0
+      ],
+      [
+        "Phone",
+        76625000.0
+      ],
+      [
+        "Monitor",
+        44114000.0
+      ],
+      [
+        "Desk",
+        38784000.0
+      ],
+      [
+        "Printer",
+        35409000.0
+      ],
+      [
+        "Chair",
+        25480000.0
+      ],
+      [
+        "Headphones",
+        10032000.0
+      ],
+      [
+        "Keyboard",
+        5706000.0
+      ],
+      [
+        "Mouse",
+        2838600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_217",
+    "question": "Top 17 products by average quantity per order",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT p.product_name,\n                  AVG(oi.quantity) AS avg_quantity\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY avg_quantity DESC LIMIT 17",
+    "columns": [
+      "product_name",
+      "avg_quantity"
+    ],
+    "expected_result": [
+      [
+        "Printer",
+        3.068636796949476
+      ],
+      [
+        "Chair",
+        3.0507662835249043
+      ],
+      [
+        "Phone",
+        3.0376610505450943
+      ],
+      [
+        "Desk",
+        3.0233863423760523
+      ],
+      [
+        "Monitor",
+        2.9924026590693256
+      ],
+      [
+        "Laptop",
+        2.9848628192999054
+      ],
+      [
+        "Headphones",
+        2.983050847457627
+      ],
+      [
+        "Tablet",
+        2.9524733268671195
+      ],
+      [
+        "Mouse",
+        2.9449112978524745
+      ],
+      [
+        "Keyboard",
+        2.910927456382002
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_045",
+    "question": "Top 5 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 5",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ],
+      [
+        "Customer_233",
+        20
+      ],
+      [
+        "Customer_479",
+        19
+      ],
+      [
+        "Customer_226",
+        19
+      ],
+      [
+        "Customer_141",
+        19
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_280",
+    "question": "Top 20 products by refunded revenue",
+    "difficulty": "advanced",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'refunded'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 20",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        8840000.0
+      ],
+      [
+        "Tablet",
+        6272000.0
+      ],
+      [
+        "Phone",
+        4700000.0
+      ],
+      [
+        "Monitor",
+        3766000.0
+      ],
+      [
+        "Desk",
+        2604000.0
+      ],
+      [
+        "Printer",
+        2134000.0
+      ],
+      [
+        "Chair",
+        1176000.0
+      ],
+      [
+        "Headphones",
+        546000.0
+      ],
+      [
+        "Keyboard",
+        354600.0
+      ],
+      [
+        "Mouse",
+        137700.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_053",
+    "question": "Top 13 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 13",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ],
+      [
+        "Customer_233",
+        20
+      ],
+      [
+        "Customer_479",
+        19
+      ],
+      [
+        "Customer_226",
+        19
+      ],
+      [
+        "Customer_141",
+        19
+      ],
+      [
+        "Customer_403",
+        18
+      ],
+      [
+        "Customer_400",
+        18
+      ],
+      [
+        "Customer_325",
+        17
+      ],
+      [
+        "Customer_316",
+        17
+      ],
+      [
+        "Customer_302",
+        17
+      ],
+      [
+        "Customer_274",
+        17
+      ],
+      [
+        "Customer_215",
+        17
+      ],
+      [
+        "Customer_214",
+        17
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_072",
+    "question": "Top 12 customers by completed revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.customer_id\n           ORDER BY revenue DESC LIMIT 12",
+    "columns": [
+      "name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Customer_167",
+        2793000.0
+      ],
+      [
+        "Customer_48",
+        2616900.0
+      ],
+      [
+        "Customer_154",
+        2522700.0
+      ],
+      [
+        "Customer_198",
+        2441300.0
+      ],
+      [
+        "Customer_141",
+        2314200.0
+      ],
+      [
+        "Customer_42",
+        2266600.0
+      ],
+      [
+        "Customer_223",
+        2234500.0
+      ],
+      [
+        "Customer_279",
+        2224600.0
+      ],
+      [
+        "Customer_230",
+        2189600.0
+      ],
+      [
+        "Customer_238",
+        2188800.0
+      ],
+      [
+        "Customer_390",
+        2172700.0
+      ],
+      [
+        "Customer_410",
+        2146600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_115",
+    "question": "Top 15 product categories by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT p.category,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM products p\n           JOIN order_items oi ON oi.product_id = p.product_id\n           JOIN orders o ON o.order_id = oi.order_id\n           WHERE o.status = 'completed'\n           GROUP BY p.category\n           ORDER BY revenue DESC LIMIT 15",
+    "columns": [
+      "category",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Electronics",
+        458631000.0
+      ],
+      [
+        "Furniture",
+        64264000.0
+      ],
+      [
+        "Accessories",
+        18576600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_126",
+    "question": "Top 6 customer segments by revenue",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.segment,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           JOIN order_items oi ON oi.order_id = o.order_id\n           WHERE o.status = 'completed'\n           GROUP BY c.segment\n           ORDER BY revenue DESC LIMIT 6",
+    "columns": [
+      "segment",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Consumer",
+        185457300.0
+      ],
+      [
+        "Corporate",
+        183829000.0
+      ],
+      [
+        "Small Business",
+        172185300.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_141",
+    "question": "Top 1 cities by order count",
+    "difficulty": "intermediate",
+    "reference_sql": "SELECT c.city, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.city\n           ORDER BY order_count DESC LIMIT 1",
+    "columns": [
+      "city",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Hyderabad",
+        938
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_013",
+    "question": "Top 13 products by completed revenue",
+    "difficulty": "basic",
+    "reference_sql": "SELECT p.product_name,\n                  SUM(oi.quantity * oi.unit_price) AS revenue\n           FROM order_items oi\n           JOIN orders o ON o.order_id = oi.order_id\n           JOIN products p ON p.product_id = oi.product_id\n           WHERE o.status = 'completed'\n           GROUP BY p.product_id\n           ORDER BY revenue DESC LIMIT 13",
+    "columns": [
+      "product_name",
+      "revenue"
+    ],
+    "expected_result": [
+      [
+        "Laptop",
+        205075000.0
+      ],
+      [
+        "Tablet",
+        97408000.0
+      ],
+      [
+        "Phone",
+        76625000.0
+      ],
+      [
+        "Monitor",
+        44114000.0
+      ],
+      [
+        "Desk",
+        38784000.0
+      ],
+      [
+        "Printer",
+        35409000.0
+      ],
+      [
+        "Chair",
+        25480000.0
+      ],
+      [
+        "Headphones",
+        10032000.0
+      ],
+      [
+        "Keyboard",
+        5706000.0
+      ],
+      [
+        "Mouse",
+        2838600.0
+      ]
+    ],
+    "answerable": true
+  },
+  {
+    "id": "QF_058",
+    "question": "Top 18 customers by number of orders",
+    "difficulty": "basic",
+    "reference_sql": "SELECT c.name, COUNT(o.order_id) AS order_count\n           FROM customers c\n           JOIN orders o ON o.customer_id = c.customer_id\n           GROUP BY c.customer_id\n           ORDER BY order_count DESC LIMIT 18",
+    "columns": [
+      "name",
+      "order_count"
+    ],
+    "expected_result": [
+      [
+        "Customer_410",
+        23
+      ],
+      [
+        "Customer_233",
+        20
+      ],
+      [
+        "Customer_479",
+        19
+      ],
+      [
+        "Customer_226",
+        19
+      ],
+      [
+        "Customer_141",
+        19
+      ],
+      [
+        "Customer_403",
+        18
+      ],
+      [
+        "Customer_400",
+        18
+      ],
+      [
+        "Customer_325",
+        17
+      ],
+      [
+        "Customer_316",
+        17
+      ],
+      [
+        "Customer_302",
+        17
+      ],
+      [
+        "Customer_274",
+        17
+      ],
+      [
+        "Customer_215",
+        17
+      ],
+      [
+        "Customer_214",
+        17
+      ],
+      [
+        "Customer_61",
+        17
+      ],
+      [
+        "Customer_35",
+        17
+      ],
+      [
+        "Customer_436",
+        16
+      ],
+      [
+        "Customer_349",
+        16
+      ],
+      [
+        "Customer_332",
+        16
+      ]
+    ],
+    "answerable": true
+  }
+]
