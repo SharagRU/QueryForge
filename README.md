@@ -1,4 +1,4 @@
-# QueryForge — VS Code Edition
+# QueryForge 
 
 A local Python version of the QueryForge SQL analytics demo. It uses SQLite, executes queries in read-only mode, and can retrieve verified SQL for exact benchmark questions.
 
