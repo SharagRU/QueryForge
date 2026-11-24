@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import time
+import os
 
 from src.agent.pipeline import ask_database
 
@@ -174,6 +175,27 @@ with st.sidebar:
 
 
 # --------------------------------------------------
+# CSV DATASET MODE
+# --------------------------------------------------
+import tempfile, re, sqlite3
+uploaded_csv = st.sidebar.file_uploader("Try your own CSV dataset", type=["csv"])
+if uploaded_csv is not None:
+    try:
+        uploaded_df = pd.read_csv(uploaded_csv)
+        safe_table = re.sub(r"[^a-zA-Z0-9_]", "_", uploaded_csv.name.rsplit(".",1)[0])[:48] or "uploaded_data"
+        if st.session_state.get("uploaded_name") != uploaded_csv.name:
+            temp_db = os.path.join(tempfile.gettempdir(), "queryforge_upload_" + safe_table + ".sqlite")
+            with sqlite3.connect(temp_db) as conn:
+                uploaded_df.to_sql(safe_table, conn, if_exists="replace", index=False)
+            st.session_state.uploaded_db_path = temp_db
+            st.session_state.uploaded_name = uploaded_csv.name
+            st.session_state.uploaded_table = safe_table
+        st.sidebar.success(f"Loaded {len(uploaded_df)} rows into table: {safe_table}")
+        st.sidebar.caption("Dynamic mode requires GEMINI_API_KEY (Gemini API).")
+    except Exception as upload_error:
+        st.sidebar.error(f"CSV load failed: {upload_error}")
+
+# --------------------------------------------------
 # HEADER
 # --------------------------------------------------
 
@@ -230,6 +252,8 @@ st.markdown('<div class="section-title">🧠 Ask Your Database</div>',
 if "query_input" not in st.session_state:
     st.session_state.query_input = ""
 
+dynamic_mode = st.checkbox("Use uploaded CSV + schema-aware AI mode", value=bool(st.session_state.get("uploaded_db_path")), disabled=not bool(st.session_state.get("uploaded_db_path")))
+
 question = st.text_area(
     "Ask a business question in plain English",
     key="query_input",
@@ -269,7 +293,7 @@ if run_query:
             start_time = time.perf_counter()
 
             try:
-                response = ask_database(question.strip())
+                response = ask_database(question.strip(), database_path=st.session_state.get("uploaded_db_path") if dynamic_mode else None, dynamic=dynamic_mode)
                 elapsed = time.perf_counter() - start_time
 
                 response["elapsed"] = elapsed

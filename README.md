@@ -1,4 +1,4 @@
-# QueryForge 
+# QueryForge — VS Code Edition
 
 A local Python version of the QueryForge SQL analytics demo. It uses SQLite, executes queries in read-only mode, and can retrieve verified SQL for exact benchmark questions.
 
@@ -53,3 +53,31 @@ Use `exit` to quit.
 - A small set of transparent SQL patterns handles common questions.
 - Unsupported questions are rejected rather than answered with invented SQL.
 - The reported Colab V5 benchmark score is a preliminary result on a 300-question, 15-template dataset; it is not a guarantee of generalization to unseen query types.
+
+
+## QueryForge upgrade: CSV schema-aware mode (experimental)
+
+This update preserves the original fixed-schema, template-based mode and adds an optional CSV-upload path.
+
+### Run
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+### Dynamic CSV mode
+1. Upload a CSV using the sidebar uploader.
+2. Enable **Use uploaded CSV + schema-aware AI mode** below the query box.
+3. Set an OpenAI-compatible API key in the environment:
+   - `GEMINI_API_KEY` (preferred) or `GEMINI_API_KEY`
+   - Optional: `GEMINI_MODEL` and `GEMINI_MODEL`
+4. Ask a question about the CSV's columns.
+
+The uploaded CSV is converted to a temporary SQLite database. QueryForge introspects its table/column names and types and sends the schema plus question to the configured LLM for SQL generation. SQL passes the existing validation layer and executes through a read-only SQLite connection.
+
+**Limitations/security:** This is an experimental prototype. It does not yet support multiple uploaded CSV tables in one dataset, production-grade user isolation, connection pooling, SQLGlot AST-level security, time/resource limits, or arbitrary remote database connectors. Keep uploaded data non-sensitive. The model may misinterpret column semantics; review generated SQL before trusting results. The API key is read from environment variables and should never be committed.
+
+
+### Gemini configuration
+
+The dynamic CSV/schema-aware mode defaults to `gemini-3.5-flash`. You can override it with `GEMINI_MODEL`. The generation request timeout defaults to 120 seconds (`GEMINI_TIMEOUT_SECONDS`), and temporary HTTP 503 overloads are retried up to two times.
