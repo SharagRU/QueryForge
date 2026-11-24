@@ -2,7 +2,7 @@ import os
 import re
 import time
 import requests
-
+import streamlit as st
 from .schema_inspector import inspect_sqlite_schema, format_schema
 from .sql_validator import validate_sql
 
